@@ -69,4 +69,14 @@ class ProductTest < ActiveSupport::TestCase
                  product.errors[:title]
   end
 
+  test 'product is not valid when title is less 10 symbols' do
+    product = Product.new(title:       'Only nine',
+                          description: 'yyy',
+                          price:       1,
+                          image_url: 'fred.gif')
+
+    assert product.invalid?
+    assert_equal ['is too short (minimum is 10 characters)'], product.errors[:title]
+  end
+
 end
